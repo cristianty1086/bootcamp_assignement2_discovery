@@ -1,11 +1,9 @@
 name: Build and Deploy java spring app to azure
 on:
   push:
-    branches:
-      - master
+    branches: [ master ]
   pull_request:
-    branches:
-      - master
+    branches: [ master ]
 
 env:
   AZURE_WEBAPP_NAME: "bootcamp37-cristianty"    # set this to your application's name
@@ -19,30 +17,30 @@ env:
   WEBAPPTEMPLATENAME: "linux-webapp-template.json"
 
 
-  jobs:
-    build:
-      name: Build application source
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - name: Set up java ${{ env.JAVA_VERSION }}
-          uses: actions/setup-java@v1
-          with:
-            java-version: ${{ env.JAVA_VERSION }}
+jobs:
+  build:
+    name: Build application source
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up java ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
 
-        - name: Build with Maven
-          run: mvn clean install
+      - name: Build with Maven
+        run: mvn clean install
 
-        # login to azure
-        - name: Login to Azure
-          uses: azure/login@v1
-          continue-on-error: false
-          with:
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
+      # login to azure
+      - name: Login to Azure
+        uses: azure/login@v1
+        continue-on-error: false
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-        # Deploy web app on azure
-        - name: 'Deploy to Azure WebApp'
-          uses: azure/webapps-deploy@v2
-          with:
-            app-name: ${{ env.AZURE_WEBAPP_NAME }}
-            package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/target/*.jar'
+      # Deploy web app on azure
+      - name: 'Deploy to Azure WebApp'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/target/*.jar'
