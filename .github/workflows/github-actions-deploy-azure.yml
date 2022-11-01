@@ -1,0 +1,48 @@
+name: Build and Deploy java spring app to azure
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+env:
+  AZURE_WEBAPP_NAME: "bootcamp37-cristianty"    # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: "Application/build"      # set this to the path to your web app project, defaults to the repository root
+  JAVA_VERSION: '1.11'             # set this to the java version to use
+  RESOURCEGROUPNAME: "bootcamp37-ws-discovery_group"
+  LOCATION: "Central US"
+  HOSTINGPLANNAME: "bootcamp-ws-discovery-plan"
+  APPINSIGHTLOCATION: "Central US"
+  SKU: "P1v2 Premium"
+  WEBAPPTEMPLATENAME: "linux-webapp-template.json"
+
+
+  jobs:
+    build:
+      name: Build application source
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Set up java ${{ env.JAVA_VERSION }}
+          uses: actions/setup-java@v1
+          with:
+            java-version: ${{ env.JAVA_VERSION }}
+
+        - name: Build with Maven
+          run: mvn clean install
+
+        # login to azure
+        - name: Login to Azure
+          uses: azure/login@v1
+          continue-on-error: false
+          with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+        # Deploy web app on azure
+        - name: 'Deploy to Azure WebApp'
+          uses: azure/webapps-deploy@v2
+          with:
+            app-name: ${{ env.AZURE_WEBAPP_NAME }}
+            package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/target/*.jar'
