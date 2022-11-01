@@ -28,7 +28,7 @@ jobs:
         uses: azure/login@v1
         continue-on-error: false
         with:
-          credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - run: |
           az webapp list --query "[?state=='Running']"
