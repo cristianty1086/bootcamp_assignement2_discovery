@@ -20,7 +20,7 @@ jobs:
       - name: Publish to Docker Hub
         uses: docker/build-push-action@v1
         with:
-          username: cristianty
-          password: dckr_pat_Any3kfsxgpvZmrUhfqgV7wcbs3I
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           repository: cristianty/ms37-discovery
           tags: ${{github.run_number}}
