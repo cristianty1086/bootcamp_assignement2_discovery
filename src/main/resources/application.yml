@@ -9,6 +9,6 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://localhost:443/eureka/
+      defaultZone: https://bootcamp37-cristianty.azurewebsites.net/eureka/
   server:
     waitTimeInMsWhenSyncEmpty: 0    #wait time for subsequent sync
