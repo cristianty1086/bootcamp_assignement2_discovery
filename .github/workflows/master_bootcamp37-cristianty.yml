@@ -37,7 +37,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_23f423f2c04b465da89b754ade63b773 }}/cristianty/ms37-discovery:${{ github.sha }}
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_23f423f2c04b465da89b754ade63b773 }}/ms37-discovery:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
