@@ -56,4 +56,4 @@ jobs:
         app-name: 'bootcamp37-cristianty'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_69a4be972c144986a2ea62e362785ad5 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_23f423f2c04b465da89b754ade63b773 }}/ms37-discovery:${{ github.sha }}'
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_23f423f2c04b465da89b754ade63b773 }}/ms37-discovery:${{github.run_number }}'
