@@ -1,5 +1,5 @@
 server:
-  port: 443
+  port: 9091
 spring:
   application:
     name: eureka
@@ -9,6 +9,6 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://localhost:443/eureka/
+      defaultZone: http://localhost:9091/eureka/
   server:
     waitTimeInMsWhenSyncEmpty: 0    #wait time for subsequent sync
